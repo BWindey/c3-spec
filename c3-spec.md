@@ -1,4 +1,59 @@
-# C3 Specification 
+# C3 Specification
+
+<!-- toc -->
+
+- [Notation](#notation)
+- [Source code representation](#source-code-representation)
+    + [Carriage return](#carriage-return)
+    + [Bidirectional markers](#bidirectional-markers)
+  * [Lexical Translations](#lexical-translations)
+  * [Line Terminators](#line-terminators)
+  * [Comments](#comments)
+  * [White Space](#white-space)
+  * [Letters and digits](#letters-and-digits)
+  * [Identifiers](#identifiers)
+  * [Keywords](#keywords)
+  * [Operators and punctuation](#operators-and-punctuation)
+  * [Backslash escapes](#backslash-escapes)
+- [Types](#types)
+  * [Boolean types](#boolean-types)
+  * [Integer types](#integer-types)
+  * [Floating point types](#floating-point-types)
+  * [Vector types](#vector-types)
+    + [Vector base type](#vector-base-type)
+    + [Min width](#min-width)
+    + [Element access](#element-access)
+    + [Field access syntax](#field-access-syntax)
+    + [Swizzling](#swizzling)
+    + [Swizzling assignment](#swizzling-assignment)
+    + [Alignment](#alignment)
+    + [Vector operations](#vector-operations)
+    + [Enum vector "ordinal"](#enum-vector-ordinal)
+    + [Vector limits](#vector-limits)
+  * [Array types](#array-types)
+  * [Slice types](#slice-types)
+  * [Pointer types](#pointer-types)
+    + [Pointee type](#pointee-type)
+    + [Deref](#deref)
+  * [Pointer arithmetics](#pointer-arithmetics)
+    + [Subscripting](#subscripting)
+    + [`iptr` and `uptr`](#iptr-and-uptr)
+    + [The wildcard pointer `void*`](#the-wildcard-pointer-void)
+    + [Pointer arithmetic on `void*`](#pointer-arithmetic-on-void)
+  * [Struct types](#struct-types)
+    + [Alignment](#alignment-1)
+    + [Flexible array member](#flexible-array-member)
+    + [Struct memory layout and size](#struct-memory-layout-and-size)
+  * [Union types](#union-types)
+    + [Alignment](#alignment-2)
+    + [Union size](#union-size)
+- [Expressions](#expressions)
+  * [Assignment expression](#assignment-expression)
+- [Statements](#statements)
+  * [Compile time assign statements](#compile-time-assign-statements)
+    + [Type assign statement](#type-assign-statement)
+
+<!-- tocstop -->
 
 ## Notation
 
@@ -141,7 +196,7 @@ $alignof   $assert     $assignable
 $case      $default    $defined
 $echo      $else       $embed
 $endfor    $endforeach $endif
-$endswitch $eval       $error     
+$endswitch $eval       $error
 $exec      $extnameof  $feature
 $for       $foreach    $if
 $include   $is_const   $nameof
@@ -163,8 +218,8 @@ The following character sequences represent operators and punctuation.
 (       )       *       [       ]       %
 >=      <=      +       +=      -=      !
 ?       ?:      &&      ??      &=      |=
-^=      /=      ..      ==      [<      >]      
-++      --      %=      !=      ||      ::      
+^=      /=      ..      ==      [<      >]
+++      --      %=      !=      ||      ::
 <<      >>      !!      ->      =>      ...
 <<=     >>=     +++     &&&    |||
 ```
@@ -262,7 +317,7 @@ Vector elements are accessed using `[]`. It is possible to take the address of a
 
 #### Field access syntax
 
-It is possible to access the index 0-3 with field access syntax. 'x', 'y', 'z', 'w' corresponds to 
+It is possible to access the index 0-3 with field access syntax. 'x', 'y', 'z', 'w' corresponds to
 indices 0-3. Alternatively 'r', 'g', 'b', 'a' may be used.
 
 #### Swizzling
