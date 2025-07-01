@@ -2,6 +2,28 @@
 
 The things in this spec discussion covers things not in the spec yet.
 
+<!-- toc -->
+
+- [Module search order](#module-search-order)
+  * [Imported modules](#imported-modules)
+- [Method search order](#method-search-order)
+- [Operator overloading for binary ops](#operator-overloading-for-binary-ops)
+  * [Definitions](#definitions)
+  * [Resolution](#resolution)
+  * [Match searching](#match-searching)
+  * [Binary expression resolution](#binary-expression-resolution)
+    + [Ambiguous evaluation order check](#ambiguous-evaluation-order-check)
+  * [Non-assignment binary expression resolution](#non-assignment-binary-expression-resolution)
+    + [Evaluation of subexpressions](#evaluation-of-subexpressions)
+    + [Additional conversions](#additional-conversions)
+  * [Optional else "??"](#optional-else-)
+      - [Ternary operator check](#ternary-operator-check)
+      - [Implicit binary casting](#implicit-binary-casting)
+      - [Signed implicit binary casting](#signed-implicit-binary-casting)
+  * [Typed operator overload resolution](#typed-operator-overload-resolution)
+
+<!-- tocstop -->
+
 ## Module search order
 
 1. Search in local module section -> done if found
@@ -46,7 +68,7 @@ The things in this spec discussion covers things not in the spec yet.
 ### Match searching
 
 1. For lhs matching, search all methods with `@operator` and `@operator_s`, for rhs matching, search all methods with `@operator_s` and `@operator_r`
-2. If the second parameter is untyped, this is a wildcard match. 
+2. If the second parameter is untyped, this is a wildcard match.
 3. If the rhs type matches the second parameter type, this is a normal match.
 4. If the rhs argument can be implicitly converted to the second parameter type, this is a normal match.
 5. In all other cases, this is not a match.
@@ -61,7 +83,7 @@ Evaluating a binary expression passes through a series of checks and promotions.
 
 Strictly speaking the contracted ternary `?:` and the optional-else operator `??` are binary expressions. However, their evaluation differs from the other binary expressions and so does not follow regular evaluation.
 
-For the remaining binary expressions, an *ambiguous evaluation order check* is performed. Binary expressions are then classified into two groups: 
+For the remaining binary expressions, an *ambiguous evaluation order check* is performed. Binary expressions are then classified into two groups:
 
 1. Assignment expressions: `= += -= *= /= %= ^= |= &=`
 2. Non-assignment binary expressions: `+ - * / % ^ | & && || == != < <= > >= &&& ||| +++`.
@@ -142,7 +164,7 @@ This method of implicit casting takes a pair of signed and unsigned integers or 
 
 1. If the value is an inline distinct type, flatten to its inline type.
 2. If the value is not an integer / integer vector, this is an *error* ⚠️.
-3. If the value is a signed integer / vector, attempt *implicit binary casting* to the signed type, 
+3. If the value is a signed integer / vector, attempt *implicit binary casting* to the signed type,
 4. If the value is an unsigned integer / vector, attempt *implicit binary casting* to the unsigned type.
 5. If the cast fails, this an *error* ⚠️.
 
